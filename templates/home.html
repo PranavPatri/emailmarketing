@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Home</title>
+  </head>
+  <body>
+    <h2>Welcome, {{ session['username'] }}</h2>
+    <h3>Products</h3>
+    <ul>
+      {% for product in products %}
+        <li style="margin-bottom:20px;">
+          <img src="{{ product.image_link }}" alt="{{ product.name }}" width="100"><br>
+          <strong>{{ product.name }}</strong><br>
+          Category: {{ product.category }}<br>
+          Price: {{ product.price }}<br>
+          <a href="{{ url_for('buy', product_id=product.id) }}">Buy</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <p><a href="{{ url_for('logout') }}">Logout</a></p>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+          {% for msg in messages %}
+            <li>{{ msg }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+  </body>
+</html>
